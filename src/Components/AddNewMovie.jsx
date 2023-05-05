@@ -178,7 +178,7 @@ const AddNewMovie = () => {
                 ].includes("")}
                 onClick={handleClick}
                 className={
-                  "w-full px-6 py-2.5 bg-[#8c4fff] text-white  font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-[#762cff] hover:shadow-lg focus:bg-[#762cff] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#6f21ff] active:shadow-lg transition duration-150 ease-in-out"
+                  "w-full px-6 py-2.5 bg-[#8c4fff] disabled:bg-gray-500 text-white  font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-[#762cff] hover:shadow-lg focus:bg-[#762cff] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#6f21ff] active:shadow-lg transition duration-150 ease-in-out"
                 }
               >
                 {loader ? (

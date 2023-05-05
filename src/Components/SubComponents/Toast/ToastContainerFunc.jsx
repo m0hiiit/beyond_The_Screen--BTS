@@ -15,6 +15,7 @@ const ToastContainerFunc = ({ }) => {
             pauseOnHover
             theme="colored"
             transition={Flip}
+            limit={1}
         />
     )
 }
@@ -28,6 +29,7 @@ const ToastError = (messege) => {
         draggable: true,
         progress: undefined,
         theme: "colored",
+        Flip: true,
     })
 }
 const ToastSuccess = (messege) =>
@@ -40,6 +42,7 @@ const ToastSuccess = (messege) =>
         draggable: true,
         progress: undefined,
         theme: "colored",
+        Flip: true,
     })
 
 

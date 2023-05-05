@@ -1,10 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../Components/SubComponents/Loader";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { query, where, getDocs } from "firebase/firestore";
 import { userREF } from "../Firebase/Firebase";
 import bcrypt from 'bcryptjs'
-import { useContext } from "react";
 import { context } from "../App";
 import ToastContainerFunc, { ToastSuccess, ToastError } from '../Components/SubComponents/Toast/ToastContainerFunc';
 
@@ -15,7 +14,7 @@ const initialLoginState = {
 
 const Login = () => {
   const naviagate = useNavigate()
-  const { setUserName, userLogin, setUserLogin } = useContext(context);
+  const { setUserName, setUserLogin } = useContext(context);
   const [loginLoader, setLoginLoader] = useState(false);
   const [passwordHide, setPasswordHide] = useState("password");
   const [loginState, setLoginState] = useState(initialLoginState);
@@ -29,45 +28,40 @@ const Login = () => {
   };
   // login
 
-
   const handleLogin = async () => {
+
+    setLoginLoader(true)
     try {
-      setLoginLoader(true)
-      let qur = query(userREF, where('mobNum', '==', loginState.mobNum))
-      const getqueryData = await getDocs(qur)
-      if (getqueryData) {
-        getqueryData.forEach((element) => {
-          const queryData = element.data();
-          const comparePass = bcrypt.compareSync(loginState.password, queryData.password);
-          if (comparePass) {
-            try {
-              setTimeout(() => {
-                naviagate("/")
-              }, 1500);
-              ToastSuccess('Login Successfull!!')
-              setUserLogin(true)
-              setUserName(queryData.username)
-              // localStorage.setItem('userName', queryData.mobNum)
-              // localStorage.setItem('password', loginState.password)
-            } catch (error) {
-              ToastError("Please Enter valid Mobile and Password")
-            }
-          }
-          else {
-            ToastError("Please Enter valid Mobile and Password")
-            setLoginState(initialLoginState)
-          }
-          setLoginLoader(false)
-        });
-      } else {
-        ToastError("Please first you do SignUp")
-      }
+      const qur = query(userREF, where('mobNum', '==', loginState.mobNum))
+      const getqueryData = await getDocs(qur);
+
+
+      getqueryData.forEach((element) => {
+        const queryData = element.data();
+        const comparePass = bcrypt.compareSync(loginState.password, queryData.password);
+
+        if (comparePass) {
+          setTimeout(() => {
+            naviagate("/")
+          }, 2000);
+          setUserLogin(true)
+          setUserName(queryData.username)
+          ToastSuccess('Login Successfull!!')
+          // localStorage.setItem('userName', queryData.mobNum)
+          // localStorage.setItem('password', loginState.password)
+        }
+        else {
+          ToastError("Please Enter valid Mobile and Password")
+          setLoginState(initialLoginState)
+          setTimeout(() => {
+            naviagate("/signup")
+          }, 2000);
+        }
+      });
     } catch (error) {
       ToastError("Something got wrong please try again later")
-      setLoginLoader(false)
-      setLoginState(initialLoginState)
     }
-
+    setLoginLoader(false)
   }
 
   return (
@@ -113,8 +107,12 @@ const Login = () => {
 
           <div className="mt-6">
             <button
-              onClick={() => handleLogin()}
-              className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#8c4fff] rounded-lg hover:bg-[#7e39ffed]
+              disabled={[
+                loginState.password,
+                loginState.mobNum,
+              ].includes("")}
+              onClick={handleLogin}
+              className="w-full px-6 py-3 disabled:bg-gray-500 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#8c4fff] rounded-lg hover:bg-[#7e39ffed]
 [#8c4fff] focus:outline-none focus:ring focus:ring-[#8c4fff] focus:ring-opacity-50"
             >
               {loginLoader ? (
@@ -133,19 +131,18 @@ const Login = () => {
             <div className="mt-6 text-center ">
               <span className="text-sm text-[#fff] dark:text-[#fff] ">
                 Don't have an account? &nbsp;
-                <NavLink
+                <Link
                   to={"/signup"}
                   className="text-[#8c4fff] cursor-pointer text-base dark:text-[#8c4fff] hover:underline"
                 >
                   Sign Up
-                </NavLink>
+                </Link>
               </span>
             </div>
           </div>
         </div>
+        <ToastContainerFunc />
       </div>
-      {/* <Toaster /> */}
-      <ToastContainerFunc />
     </section>
   );
 };

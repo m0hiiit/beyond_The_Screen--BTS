@@ -113,7 +113,8 @@ const Reviews = ({ movieID, star, user }) => {
           onChange={(e) => setInputReviews(e.target.value)}
         />
         <button
-          className="!absolute right-1 top-1 self-center z-10 select-none rounded bg-[#8c4fff] py-2 px-4 mx-1 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 cursor-pointer"
+          disabled={(starsReviews && inputReviews) ? '' : 'disabled'}
+          className="!absolute right-1 top-1 disabled:bg-gray-500 self-center z-10 select-none rounded bg-[#8c4fff] py-2 px-4 mx-1 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 cursor-pointer"
           type="button"
           data-ripple-light="true"
           onClick={handleClick}

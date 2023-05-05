@@ -200,8 +200,13 @@ const SignUp = () => {
 
               <div className="mt-6">
                 <button
+                  disabled={[
+                    signUpState.password,
+                    signUpState.mobNum,
+                    signUpState.username
+                  ].includes("")}
                   onClick={handleOtpClick}
-                  className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#8c4fff] rounded-lg hover:bg-[#7e39ffed]
+                  className="w-full px-6 py-3 text-sm font-medium tracking-wide disabled:bg-gray-500 text-white capitalize transition-colors duration-300 transform bg-[#8c4fff] rounded-lg hover:bg-[#7e39ffed]
             [#8c4fff] focus:outline-none focus:ring focus:ring-[#8c4fff] focus:ring-opacity-50"
                 >
                   {signUpLoader ? (
