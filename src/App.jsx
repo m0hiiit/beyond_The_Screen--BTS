@@ -1,8 +1,8 @@
-import Navbar from "../src/Components/Navbar";
-import ShowMovie from "../src/Components/ShowMovie";
-import AddNewMovie from "../src/Components/AddNewMovie";
+import Navbar from "./Components/Navbar";
+import ShowMovie from "./Components/ShowMovie";
+import AddNewMovie from "./Components/AddNewMovie";
 import DetailsMovieShow from "./Components/DetailsMovieShow";
-import ErrorPage from "../src/Components/ErrorPage";
+import ErrorPage from "./Components/ErrorPage";
 import Login from "./Authentication/Login";
 import SignUp from "./Authentication/SignUp";
 import { Route, Routes } from "react-router-dom";
