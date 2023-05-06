@@ -6,7 +6,7 @@ import ErrorPage from "../src/Components/ErrorPage";
 import Login from "./Authentication/Login";
 import SignUp from "./Authentication/SignUp";
 import { Route, Routes } from "react-router-dom";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 const context = createContext();
 
