@@ -1,1 +1,1 @@
-Live : https://btss.netlify.app/
+Live : https://btss.vercel.app/
